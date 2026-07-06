@@ -18,14 +18,14 @@ export default function IncomeChart({ data }: { data: DayIncome[] }) {
   return (
     <Card>
       <div className="mb-4 flex items-baseline justify-between">
-        <h2 className="text-sm font-semibold text-gray-900">Доход за неделю</h2>
+        <h2 className="text-sm font-semibold text-gray-900">Income this week</h2>
         <span className="text-sm font-semibold text-gray-900">€{total.toFixed(2)}</span>
       </div>
 
       <div
         className="flex h-36 items-end gap-2"
         role="img"
-        aria-label={`Доход за неделю: ${data.map((d) => `${d.day} — ${d.amount} евро`).join(', ')}`}
+        aria-label={`Income this week: ${data.map((d) => `${d.day} — ${d.amount} euro`).join(', ')}`}
       >
         {data.map((d) => {
           const heightPct = Math.max((d.amount / max) * 100, d.amount > 0 ? 4 : 2);

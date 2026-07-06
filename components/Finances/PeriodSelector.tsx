@@ -1,15 +1,15 @@
 // path: components/Finances/PeriodSelector.tsx
-// Переключатель периода: [День][Неделя][Месяц][Всё] → диапазон from/to
+// Переключатель периода: [Day][Week][Month][Всё] → диапазон from/to
 
 'use client';
 
 export type Period = 'day' | 'week' | 'month' | 'all';
 
 export const PERIOD_LABELS: Record<Period, string> = {
-  day: 'Сегодня',
-  week: 'Неделя',
-  month: 'Месяц',
-  all: 'Всё время',
+  day: 'Today',
+  week: 'Week',
+  month: 'Month',
+  all: 'All time',
 };
 
 /** локальная дата → YYYY-MM-DD */
@@ -44,7 +44,7 @@ export default function PeriodSelector({ value, onChange }: PeriodSelectorProps)
   return (
     <div
       role="tablist"
-      aria-label="Период"
+      aria-label="Period"
       className="flex w-full rounded-lg border border-gray-300 bg-white p-0.5 sm:w-auto"
     >
       {(Object.keys(PERIOD_LABELS) as Period[]).map((p) => (

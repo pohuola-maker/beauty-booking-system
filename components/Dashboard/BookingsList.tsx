@@ -1,5 +1,5 @@
 // path: components/Dashboard/BookingsList.tsx
-// Предстоящие букинги: список на мобильном, строки с колонками на десктопе
+// Upcoming bookings: список на мобильном, строки с колонками на десктопе
 
 import Link from 'next/link';
 import Card from '@/components/Common/Card';
@@ -20,9 +20,9 @@ const statusStyles: Record<string, string> = {
 };
 
 const statusLabels: Record<string, string> = {
-  pending: 'Ожидает',
-  confirmed: 'Подтверждён',
-  cancelled: 'Отменён',
+  pending: 'Pending',
+  confirmed: 'Confirmed',
+  cancelled: 'Cancelled',
 };
 
 function formatDate(iso: string): string {
@@ -34,14 +34,14 @@ export default function BookingsList({ bookings }: { bookings: UpcomingBooking[]
   return (
     <Card noPadding>
       <div className="flex items-center justify-between border-b border-gray-100 px-4 py-3">
-        <h2 className="text-sm font-semibold text-gray-900">Предстоящие букинги</h2>
+        <h2 className="text-sm font-semibold text-gray-900">Upcoming bookings</h2>
         <Link href="/admin/calendar" className="text-xs font-medium text-blue-600 hover:text-blue-700">
-          Все →
+          All →
         </Link>
       </div>
 
       {bookings.length === 0 ? (
-        <p className="px-4 py-8 text-center text-sm text-gray-500">Нет предстоящих букингов</p>
+        <p className="px-4 py-8 text-center text-sm text-gray-500">No upcoming bookings</p>
       ) : (
         <ul className="divide-y divide-gray-100">
           {bookings.map((b) => (

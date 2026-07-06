@@ -1,7 +1,7 @@
 // path: app/api/finances/report/route.ts
 // GET /api/finances/report?from=...&to=...&format=json|csv
 // Детальный финансовый отчёт: доходы (по услугам) + расходы (по категориям).
-// format=csv — единый журнал операций для бухгалтера / Revenue.ie.
+// format=csv — единый журнал operations для бухгалтера / Revenue.ie.
 
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/supabase';
@@ -101,7 +101,7 @@ export async function GET(req: NextRequest) {
         type: 'expense',
         date: r.date,
         description: r.description,
-        category: r.expense_categories?.name ?? 'прочее',
+        category: r.expense_categories?.name ?? 'other',
         client: '',
         amount: Number(r.amount),
       })),

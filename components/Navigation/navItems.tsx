@@ -41,6 +41,12 @@ const icons = {
       <path strokeLinecap="round" strokeLinejoin="round" d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3zM19 15l.9 2.4L22 18.5l-2.1 1.1L19 22l-.9-2.4-2.1-1.1 2.1-1.1L19 15z" />
     </svg>
   ),
+  clock: (
+    <svg className={iconClass} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 7v5l3 3" />
+    </svg>
+  ),
   settings: (
     <svg className={iconClass} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
       <circle cx="12" cy="12" r="3" />
@@ -51,11 +57,12 @@ const icons = {
 
 export const NAV_ITEMS: NavItem[] = [
   { href: '/admin', label: 'Dashboard', icon: icons.dashboard, inBottomNav: true },
-  { href: '/admin/calendar', label: 'Календарь', icon: icons.calendar, inBottomNav: true },
-  { href: '/admin/clients', label: 'Клиенты', icon: icons.clients, inBottomNav: true },
-  { href: '/admin/finances', label: 'Финансы', icon: icons.finances, inBottomNav: true },
-  { href: '/admin/services', label: 'Услуги', icon: icons.services, inBottomNav: false },
-  { href: '/admin/settings', label: 'Настройки', icon: icons.settings, inBottomNav: false },
+  { href: '/admin/calendar', label: 'Calendar', icon: icons.calendar, inBottomNav: true },
+  { href: '/admin/slots', label: 'Slots', icon: icons.clock, inBottomNav: false },
+  { href: '/admin/clients', label: 'Clients', icon: icons.clients, inBottomNav: true },
+  { href: '/admin/finances', label: 'Finances', icon: icons.finances, inBottomNav: true },
+  { href: '/admin/services', label: 'Services', icon: icons.services, inBottomNav: false },
+  { href: '/admin/settings', label: 'Settings', icon: icons.settings, inBottomNav: false },
 ];
 
 /** Активна ли ссылка (точное совпадение для /admin, prefix для остальных) */

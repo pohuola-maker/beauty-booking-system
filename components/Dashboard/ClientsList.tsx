@@ -1,5 +1,5 @@
 // path: components/Dashboard/ClientsList.tsx
-// Недавние клиенты: имя, телефон, визиты, потрачено
+// Recent clients: имя, телефон, визиты, потрачено
 
 import Link from 'next/link';
 import Card from '@/components/Common/Card';
@@ -16,14 +16,14 @@ export default function ClientsList({ clients }: { clients: RecentClient[] }) {
   return (
     <Card noPadding>
       <div className="flex items-center justify-between border-b border-gray-100 px-4 py-3">
-        <h2 className="text-sm font-semibold text-gray-900">Недавние клиенты</h2>
+        <h2 className="text-sm font-semibold text-gray-900">Recent clients</h2>
         <Link href="/admin/clients" className="text-xs font-medium text-blue-600 hover:text-blue-700">
-          Все →
+          All →
         </Link>
       </div>
 
       {clients.length === 0 ? (
-        <p className="px-4 py-8 text-center text-sm text-gray-500">Ещё нет клиентов</p>
+        <p className="px-4 py-8 text-center text-sm text-gray-500">No clients yet</p>
       ) : (
         <ul className="divide-y divide-gray-100">
           {clients.map((c) => (
@@ -54,10 +54,5 @@ export default function ClientsList({ clients }: { clients: RecentClient[] }) {
 }
 
 function visitsLabel(n: number): string {
-  const mod10 = n % 10;
-  const mod100 = n % 100;
-  if (mod100 >= 11 && mod100 <= 14) return 'визитов';
-  if (mod10 === 1) return 'визит';
-  if (mod10 >= 2 && mod10 <= 4) return 'визита';
-  return 'визитов';
+  return n === 1 ? 'visit' : 'visits';
 }

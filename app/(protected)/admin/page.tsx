@@ -26,9 +26,9 @@ interface DashboardResponse {
 }
 
 const quickActions = [
-  { href: '/admin/services', label: '+ Добавить услугу' },
-  { href: '/admin/calendar', label: 'Букинги' },
-  { href: '/admin/finances', label: 'Финансы' },
+  { href: '/admin/services', label: '+ Add service' },
+  { href: '/admin/calendar', label: 'Bookings' },
+  { href: '/admin/finances', label: 'Finances' },
 ];
 
 export default function AdminDashboardPage() {
@@ -76,13 +76,13 @@ export default function AdminDashboardPage() {
           <>
             {/* summary: 2x2 на мобильном, 1 ряд на desktop */}
             <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-              <SummaryCard label="Букинги сегодня" value={String(data.bookings_today)} />
-              <SummaryCard label="Доход сегодня" value={`€${data.income_today.toFixed(2)}`} />
-              <SummaryCard label="Клиентов всего" value={String(data.total_clients)} />
+              <SummaryCard label="Bookings today" value={String(data.bookings_today)} />
+              <SummaryCard label="Income today" value={`€${data.income_today.toFixed(2)}`} />
+              <SummaryCard label="Total clients" value={String(data.total_clients)} />
               <SummaryCard
                 label="Profit margin"
                 value={`${data.profit_margin}%`}
-                trend="за текущий месяц"
+                trend="this month"
                 trendPositive={data.profit_margin >= 0}
               />
             </div>

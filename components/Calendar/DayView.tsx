@@ -55,7 +55,7 @@ export default function DayView({ date, bookings, onSelectBooking }: DayViewProp
     <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
       {visible.length === 0 && (
         <p className="border-b border-gray-100 px-4 py-3 text-center text-sm text-gray-500">
-          Нет букингов на этот день
+          No bookings for this day
         </p>
       )}
 

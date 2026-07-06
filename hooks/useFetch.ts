@@ -71,7 +71,7 @@ export function useFetch<T>(path: string, options: UseFetchOptions = {}): UseFet
         router.replace('/login');
         return;
       }
-      setError(e instanceof Error ? e.message : 'Не удалось загрузить данные');
+      setError(e instanceof Error ? e.message : 'Failed to load data');
     } finally {
       if (abortRef.current === controller) setLoading(false);
     }

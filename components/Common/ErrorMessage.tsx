@@ -35,7 +35,7 @@ export default function ErrorMessage({ message, onRetry }: ErrorMessageProps) {
             text-red-700 transition-colors hover:bg-red-100
             focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
         >
-          Повторить
+          Retry
         </button>
       )}
     </div>

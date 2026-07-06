@@ -1,5 +1,5 @@
 // path: app/(protected)/admin/finances/page.tsx
-// Финансы: период → summary (доход/расход/прибыль/маржа),
+// Finances: период → summary (доход/расход/прибыль/маржа),
 // форма расхода, таблица расходов, CSV export отчёта
 
 'use client';
@@ -76,9 +76,9 @@ export default function FinancesPage() {
       a.download = `finance_report_${from}_${to}.csv`;
       a.click();
       URL.revokeObjectURL(url);
-      setToast({ message: 'Отчёт скачан', type: 'success' });
+      setToast({ message: 'Report downloaded', type: 'success' });
     } catch {
-      setToast({ message: 'Не удалось экспортировать отчёт', type: 'error' });
+      setToast({ message: 'Failed to export report', type: 'error' });
     } finally {
       setExporting(false);
     }
@@ -88,7 +88,7 @@ export default function FinancesPage() {
     <AdminLayout>
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h1 className="text-xl font-semibold text-gray-900">Финансы</h1>
+          <h1 className="text-xl font-semibold text-gray-900">Finances</h1>
           <Button variant="secondary" size="sm" onClick={exportReport} loading={exporting}>
             Export report
           </Button>
@@ -104,23 +104,23 @@ export default function FinancesPage() {
         ) : (
           <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
             <Card className="border-l-4 border-l-green-500">
-              <p className="text-xs font-medium uppercase tracking-wide text-gray-500">Доход</p>
+              <p className="text-xs font-medium uppercase tracking-wide text-gray-500">Income</p>
               <p className="mt-1.5 text-2xl font-semibold text-green-600">
                 €{summary.total_income.toFixed(2)}
               </p>
-              <p className="mt-1 text-xs text-gray-500">{summary.income_operations} записей</p>
+              <p className="mt-1 text-xs text-gray-500">{summary.income_operations} records</p>
             </Card>
 
             <Card className="border-l-4 border-l-red-500">
-              <p className="text-xs font-medium uppercase tracking-wide text-gray-500">Расходы</p>
+              <p className="text-xs font-medium uppercase tracking-wide text-gray-500">Expenses</p>
               <p className="mt-1.5 text-2xl font-semibold text-red-600">
                 €{summary.total_expenses.toFixed(2)}
               </p>
-              <p className="mt-1 text-xs text-gray-500">{summary.expense_operations} операций</p>
+              <p className="mt-1 text-xs text-gray-500">{summary.expense_operations} operations</p>
             </Card>
 
             <Card className="border-l-4 border-l-blue-500">
-              <p className="text-xs font-medium uppercase tracking-wide text-gray-500">Прибыль</p>
+              <p className="text-xs font-medium uppercase tracking-wide text-gray-500">Profit</p>
               <p
                 className={`mt-1.5 text-2xl font-semibold ${
                   summary.profit >= 0 ? 'text-blue-600' : 'text-red-600'
@@ -143,7 +143,7 @@ export default function FinancesPage() {
 
         {/* расходы за период */}
         <div>
-          <h2 className="mb-2 text-sm font-semibold text-gray-900">Расходы за период</h2>
+          <h2 className="mb-2 text-sm font-semibold text-gray-900">Expenses for this period</h2>
           {expenses.error ? (
             <ErrorMessage message={expenses.error} onRetry={expenses.refetch} />
           ) : expenses.loading || !expenses.data ? (

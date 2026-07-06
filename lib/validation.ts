@@ -41,6 +41,26 @@ export const registerSchema = z.object({
     .regex(/[0-9]/, 'Password must contain a digit'),
 });
 
+export const profileUpdateSchema = z.object({
+  name: z.string().trim().min(2).max(100),
+  phone: z
+    .string()
+    .trim()
+    .regex(phoneRegex, 'Invalid phone number')
+    .optional()
+    .or(z.literal('')),
+});
+
+export const changePasswordSchema = z.object({
+  old_password: z.string().min(1, 'Enter current password'),
+  new_password: z
+    .string()
+    .min(8, 'Password must be at least 8 characters')
+    .max(72)
+    .regex(/[a-zA-Z]/, 'Password must contain a letter')
+    .regex(/[0-9]/, 'Password must contain a digit'),
+});
+
 // ---------- services ----------
 
 export const serviceCreateSchema = z.object({

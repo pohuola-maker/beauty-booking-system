@@ -1,5 +1,5 @@
 // path: components/Calendar/DatePicker.tsx
-// Навигация по дате: стрелки < >, "Сегодня", по клику на дату — нативный date picker
+// Навигация по дате: стрелки < >, "Today", по клику на дату — нативный date picker
 
 'use client';
 
@@ -25,7 +25,7 @@ export default function DatePicker({ date, onChange }: DatePickerProps) {
       <button
         type="button"
         onClick={() => onChange(addDays(date, -1))}
-        aria-label="Предыдущий день"
+        aria-label="Previous day"
         className={arrowButton}
       >
         <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
@@ -49,7 +49,7 @@ export default function DatePicker({ date, onChange }: DatePickerProps) {
           type="date"
           value={date}
           onChange={(e) => e.target.value && onChange(e.target.value)}
-          aria-label="Выбрать дату"
+          aria-label="Pick a date"
           tabIndex={-1}
           className="absolute inset-0 -z-10 opacity-0"
         />
@@ -58,7 +58,7 @@ export default function DatePicker({ date, onChange }: DatePickerProps) {
       <button
         type="button"
         onClick={() => onChange(addDays(date, 1))}
-        aria-label="Следующий день"
+        aria-label="Next day"
         className={arrowButton}
       >
         <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
@@ -73,7 +73,7 @@ export default function DatePicker({ date, onChange }: DatePickerProps) {
           className="rounded-lg px-3 py-2 text-sm font-medium text-blue-600 transition-colors
             hover:bg-blue-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
         >
-          Сегодня
+          Today
         </button>
       )}
     </div>
@@ -82,7 +82,7 @@ export default function DatePicker({ date, onChange }: DatePickerProps) {
 
 function formatLabel(iso: string): string {
   const [y, m, d] = iso.split('-').map(Number);
-  return new Intl.DateTimeFormat('ru-RU', {
+  return new Intl.DateTimeFormat('en-IE', {
     weekday: 'short',
     day: '2-digit',
     month: 'long',

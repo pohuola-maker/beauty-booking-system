@@ -11,7 +11,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         <span className="text-2xl font-semibold tracking-tight text-gray-900">
           Beauty<span className="text-blue-600">Book</span>
         </span>
-        <p className="mt-1 text-sm text-gray-500">Записи, клиенты и финансы — в одном месте</p>
+        <p className="mt-1 text-sm text-gray-500">Bookings, clients & finances — in one place</p>
       </div>
 
       <div className="w-full max-w-sm">{children}</div>

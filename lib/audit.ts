@@ -21,6 +21,8 @@ export type AuditAction =
   | 'delete_service'
   | 'create_time_slot'
   | 'delete_time_slot'
+  | 'update_profile'
+  | 'change_password'
   | 'export_report';
 
 export type AuditEntityType =

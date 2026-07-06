@@ -46,8 +46,12 @@ export async function POST(req: NextRequest) {
     const slots = 'slots' in body ? body.slots : [body];
     const rows = slots.map((s) => ({ ...s, user_id: auth.id, available: true }));
 
-    const { data, error } = await db().from('time_slots').insert(rows).select('*');
-    if (error) throwDbError(error); // 23505 → слот на это время уже есть
+    // upsert + ignoreDuplicates: повторная генерация не падает на существующих слотах
+    const { data, error } = await db()
+      .from('time_slots')
+      .upsert(rows, { onConflict: 'user_id,date,start_time', ignoreDuplicates: true })
+      .select('*');
+    if (error) throwDbError(error);
 
     await logAudit({
       userId: auth.id,
@@ -57,7 +61,10 @@ export async function POST(req: NextRequest) {
       req,
     });
 
-    return NextResponse.json({ time_slots: data ?? [] }, { status: 201 });
+    return NextResponse.json(
+      { time_slots: data ?? [], created: data?.length ?? 0, requested: rows.length },
+      { status: 201 }
+    );
   } catch (error) {
     return handleApiError(error);
   }

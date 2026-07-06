@@ -32,9 +32,9 @@ interface ClientModalProps {
 }
 
 const statusLabels: Record<string, string> = {
-  pending: 'ожидает',
-  confirmed: 'подтверждён',
-  cancelled: 'отменён',
+  pending: 'pending',
+  confirmed: 'confirmed',
+  cancelled: 'cancelled',
 };
 
 export default function ClientModal({ clientId, onClose, onChanged }: ClientModalProps) {
@@ -85,7 +85,7 @@ export default function ClientModal({ clientId, onClose, onChanged }: ClientModa
         tags,
       },
     });
-    if (result) onChanged('Клиент сохранён');
+    if (result) onChanged('Client saved');
   }
 
   async function onDelete() {
@@ -94,21 +94,21 @@ export default function ClientModal({ clientId, onClose, onChanged }: ClientModa
       return;
     }
     const result = await remove.request(`/api/clients/${clientId}`, { method: 'DELETE' });
-    if (result) onChanged('Клиент удалён (GDPR: история букингов сохранена для налоговой)');
+    if (result) onChanged('Client deleted (GDPR: booking history kept for tax records)');
   }
 
   return (
     <Modal
       open
       onClose={onClose}
-      title="Клиент"
+      title="Client"
       footer={
         <>
           <Button variant="danger" onClick={onDelete} loading={remove.loading} disabled={busy || loading}>
-            {confirmDelete ? 'Точно удалить? (GDPR)' : 'Удалить'}
+            {confirmDelete ? 'Really delete? (GDPR)' : 'Delete'}
           </Button>
           <Button onClick={onSave} loading={save.loading} disabled={busy || loading}>
-            Сохранить
+            Save
           </Button>
         </>
       }
@@ -127,14 +127,14 @@ export default function ClientModal({ clientId, onClose, onChanged }: ClientModa
 
           <div className="grid gap-3 sm:grid-cols-2">
             <Input
-              label="Имя"
+              label="Name"
               value={form.name}
               onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
               error={save.fieldErrors?.name?.[0]}
               disabled={busy}
             />
             <Input
-              label="Телефон"
+              label="Phone"
               type="tel"
               value={form.phone}
               onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
@@ -154,7 +154,7 @@ export default function ClientModal({ clientId, onClose, onChanged }: ClientModa
 
           {/* теги */}
           <div>
-            <p className="mb-1.5 text-sm font-medium text-gray-700">Теги</p>
+            <p className="mb-1.5 text-sm font-medium text-gray-700">Tags</p>
             <div className="flex flex-wrap gap-1.5">
               {PRESET_TAGS.map((tag) => (
                 <button
@@ -182,7 +182,7 @@ export default function ClientModal({ clientId, onClose, onChanged }: ClientModa
                     <button
                       type="button"
                       onClick={() => toggleTag(tag)}
-                      aria-label={`Убрать тег ${tag}`}
+                      aria-label={`Remove tag ${tag}`}
                       className="hover:text-blue-900"
                     >
                       ×
@@ -201,8 +201,8 @@ export default function ClientModal({ clientId, onClose, onChanged }: ClientModa
                     addCustomTag();
                   }
                 }}
-                placeholder="Свой тег…"
-                aria-label="Добавить свой тег"
+                placeholder="Custom tag…"
+                aria-label="Add custom tag"
                 className="w-36 rounded-lg border border-gray-300 px-3 py-1.5 text-xs
                   focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
               />
@@ -212,7 +212,7 @@ export default function ClientModal({ clientId, onClose, onChanged }: ClientModa
                 className="rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-medium
                   text-gray-700 hover:bg-gray-50"
               >
-                Добавить
+                Add
               </button>
             </div>
           </div>
@@ -220,7 +220,7 @@ export default function ClientModal({ clientId, onClose, onChanged }: ClientModa
           {/* заметки */}
           <div>
             <label htmlFor="client-notes" className="mb-1.5 block text-sm font-medium text-gray-700">
-              Заметки
+              Notes
             </label>
             <textarea
               id="client-notes"
@@ -228,7 +228,7 @@ export default function ClientModal({ clientId, onClose, onChanged }: ClientModa
               value={form.notes}
               onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))}
               disabled={busy}
-              placeholder="Аллергии, предпочтения, детали..."
+              placeholder="Allergies, preferences, details..."
               className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm
                 placeholder:text-gray-400 focus:border-blue-500 focus:outline-none
                 focus:ring-2 focus:ring-blue-200 disabled:bg-gray-50"
@@ -238,11 +238,11 @@ export default function ClientModal({ clientId, onClose, onChanged }: ClientModa
           {/* история визитов */}
           <div>
             <p className="mb-2 text-sm font-medium text-gray-700">
-              История визитов ({data.bookings.length})
+              Visit history ({data.bookings.length})
             </p>
             {data.bookings.length === 0 ? (
               <p className="rounded-lg bg-gray-50 py-4 text-center text-sm text-gray-500">
-                Ещё не было визитов
+                No visits yet
               </p>
             ) : (
               <ul className="max-h-48 divide-y divide-gray-100 overflow-y-auto rounded-lg border border-gray-200">

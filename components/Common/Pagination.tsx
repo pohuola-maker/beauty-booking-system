@@ -37,19 +37,19 @@ export default function Pagination({ page, limit, total, onPageChange }: Paginat
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600';
 
   return (
-    <nav aria-label="Пагинация" className="flex items-center justify-between gap-3 py-3">
+    <nav aria-label="Pagination" className="flex items-center justify-between gap-3 py-3">
       <button type="button" onClick={() => goTo(page - 1)} disabled={page <= 1} className={navButton}>
-        ← Назад
+        ← Prev
       </button>
 
       <div className="flex items-center gap-2 text-sm text-gray-600">
         <span>
-          Страница {page} из {totalPages}
+          Page {page} of {totalPages}
         </span>
         {/* jump to page — только desktop */}
         <form onSubmit={onJumpSubmit} className="hidden items-center gap-1 sm:flex">
           <label htmlFor="page-jump" className="sr-only">
-            Перейти на страницу
+            Jump to page
           </label>
           <input
             id="page-jump"
@@ -70,7 +70,7 @@ export default function Pagination({ page, limit, total, onPageChange }: Paginat
         disabled={page >= totalPages}
         className={navButton}
       >
-        Вперёд →
+        Next →
       </button>
     </nav>
   );

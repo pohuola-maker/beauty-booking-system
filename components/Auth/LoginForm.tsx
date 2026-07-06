@@ -30,8 +30,8 @@ export default function LoginForm() {
 
   function validate(): boolean {
     const errors: typeof clientErrors = {};
-    if (!EMAIL_RE.test(email.trim())) errors.email = 'Введи корректный email';
-    if (!password) errors.password = 'Введи пароль';
+    if (!EMAIL_RE.test(email.trim())) errors.email = 'Enter a valid email';
+    if (!password) errors.password = 'Enter your password';
     setClientErrors(errors);
     return Object.keys(errors).length === 0;
   }
@@ -54,7 +54,7 @@ export default function LoginForm() {
 
   return (
     <Card className="p-6">
-      <h1 className="mb-6 text-xl font-semibold text-gray-900">Вход</h1>
+      <h1 className="mb-6 text-xl font-semibold text-gray-900">Log in</h1>
 
       <form onSubmit={onSubmit} noValidate className="space-y-4">
         {error && <ErrorMessage message={error} />}
@@ -73,7 +73,7 @@ export default function LoginForm() {
         />
 
         <Input
-          label="Пароль"
+          label="Password"
           type="password"
           name="password"
           autoComplete="current-password"
@@ -85,14 +85,14 @@ export default function LoginForm() {
         />
 
         <Button type="submit" fullWidth size="lg" loading={loading}>
-          Войти
+          Log in
         </Button>
       </form>
 
       <p className="mt-6 text-center text-sm text-gray-600">
-        Нет аккаунта?{' '}
+        No account?{' '}
         <Link href="/register" className="font-medium text-blue-600 hover:text-blue-700">
-          Зарегистрируйся
+          Sign up
         </Link>
       </p>
     </Card>

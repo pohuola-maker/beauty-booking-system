@@ -51,7 +51,7 @@ export function useAuth(options: UseAuthOptions = {}): UseAuthResult {
         // не залогинен — это не "ошибка", просто нет сессии
         setError(null);
       } else {
-        setError(e instanceof Error ? e.message : 'Не удалось загрузить профиль');
+        setError(e instanceof Error ? e.message : 'Failed to load profile');
       }
     } finally {
       setLoading(false);

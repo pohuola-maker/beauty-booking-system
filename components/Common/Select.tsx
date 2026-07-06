@@ -14,7 +14,7 @@ export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
   error?: string;
   options?: SelectOption[];
-  /** текст первой пустой опции, например "Выбери категорию" */
+  /** текст первой пустой опции, например "Select a category" */
   placeholder?: string;
   children?: ReactNode;
 }

@@ -68,7 +68,7 @@ export default function Modal({
             ref={closeButtonRef}
             type="button"
             onClick={onClose}
-            aria-label="Закрыть"
+            aria-label="Close"
             className="rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-600
               focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
           >

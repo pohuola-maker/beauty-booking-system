@@ -2,7 +2,7 @@
 // GET /api/finances/dashboard — данные для главной страницы админа:
 // счётчики за сегодня, клиенты, profit margin (текущий месяц),
 // ближайшие 5 букингов, последние 3 клиента, доход за 7 дней.
-// Доход = confirmed букинги без no_show (по дате слота).
+// Income = confirmed букинги без no_show (по дате слота).
 
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/supabase';
@@ -44,7 +44,7 @@ export async function GET() {
           .gte('time_slots.date', weekAgo)
           .lte('time_slots.date', today),
 
-        // доход за текущий месяц (для profit margin)
+        // доход this month (для profit margin)
         db()
           .from('bookings')
           .select('amount_received, time_slots!inner ( date )')
@@ -53,7 +53,7 @@ export async function GET() {
           .eq('no_show', false)
           .gte('time_slots.date', monthStart),
 
-        // расходы за текущий месяц
+        // расходы this month
         db().from('expenses').select('amount').eq('user_id', auth.id).gte('date', monthStart),
 
         // всего активных клиентов
@@ -96,7 +96,7 @@ export async function GET() {
       );
     }
 
-    const weekdayFormat = new Intl.DateTimeFormat('ru-RU', { weekday: 'short' });
+    const weekdayFormat = new Intl.DateTimeFormat('en-IE', { weekday: 'short' });
     const weeklyIncome = Array.from({ length: 7 }, (_, i) => {
       const d = new Date(now.getTime() - (6 - i) * 24 * 60 * 60 * 1000);
       const date = isoDate(d);
@@ -109,7 +109,7 @@ export async function GET() {
 
     const incomeToday = weeklyIncome[weeklyIncome.length - 1].amount;
 
-    // --- букинги сегодня (не отменённые) ---
+    // --- букинги сегодня (не cancelledные) ---
     const upcomingRaw = (upcomingRes.data ?? []).map((b) => ({
       id: b.id as string,
       client_name: b.client_name as string,
@@ -127,7 +127,7 @@ export async function GET() {
       )
       .slice(0, 5);
 
-    // --- profit margin за текущий месяц ---
+    // --- profit margin this month ---
     const monthIncome = (monthIncomeRes.data ?? []).reduce(
       (s, r) => s + Number(r.amount_received ?? 0),
       0

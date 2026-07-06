@@ -26,12 +26,10 @@ export async function POST(req: NextRequest) {
       throw new ApiError(401, 'Invalid email or password');
     }
 
-    const token = await signToken({
-      id: user.id,
-      email: user.email,
-      role: user.role,
-      name: user.name,
-    });
+    const token = await signToken(
+      { id: user.id, email: user.email, role: user.role, name: user.name },
+      user.token_version ?? 0
+    );
     setAuthCookie(token);
 
     await logAudit({

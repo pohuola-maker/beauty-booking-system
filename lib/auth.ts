@@ -5,6 +5,7 @@ import { SignJWT, jwtVerify } from 'jose';
 import bcrypt from 'bcryptjs';
 import { cookies } from 'next/headers';
 import { ApiError } from './api';
+import { db } from './supabase';
 
 export const AUTH_COOKIE = 'auth_token';
 const TOKEN_TTL_SECONDS = 60 * 60 * 24 * 7; // 7 дней
@@ -37,8 +38,8 @@ export async function verifyPassword(plain: string, hash: string): Promise<boole
 
 // ---------- JWT ----------
 
-export async function signToken(user: AuthUser): Promise<string> {
-  return new SignJWT({ email: user.email, role: user.role, name: user.name })
+export async function signToken(user: AuthUser, tokenVersion = 0): Promise<string> {
+  return new SignJWT({ email: user.email, role: user.role, name: user.name, ver: tokenVersion })
     .setProtectedHeader({ alg: 'HS256' })
     .setSubject(user.id)
     .setIssuedAt()
@@ -46,7 +47,7 @@ export async function signToken(user: AuthUser): Promise<string> {
     .sign(jwtSecret());
 }
 
-export async function verifyToken(token: string): Promise<AuthUser | null> {
+export async function verifyToken(token: string): Promise<(AuthUser & { ver: number }) | null> {
   try {
     const { payload } = await jwtVerify(token, jwtSecret());
     if (!payload.sub || !payload.email || !payload.role) return null;
@@ -55,6 +56,7 @@ export async function verifyToken(token: string): Promise<AuthUser | null> {
       email: payload.email as string,
       role: payload.role as 'admin' | 'client',
       name: (payload.name as string) ?? '',
+      ver: typeof payload.ver === 'number' ? payload.ver : 0,
     };
   } catch {
     return null; // истёк / подделан / невалиден
@@ -91,6 +93,18 @@ export async function requireAuth(): Promise<AuthUser> {
   if (!token) throw new ApiError(401, 'Not authenticated');
   const user = await verifyToken(token);
   if (!user) throw new ApiError(401, 'Invalid or expired token');
+
+  // token_version в БД растёт при смене пароля → все старые токены умирают
+  const { data } = await db()
+    .from('users')
+    .select('token_version')
+    .eq('id', user.id)
+    .maybeSingle();
+
+  if (!data || (data.token_version ?? 0) !== user.ver) {
+    throw new ApiError(401, 'Session expired — please log in again');
+  }
+
   return user;
 }
 

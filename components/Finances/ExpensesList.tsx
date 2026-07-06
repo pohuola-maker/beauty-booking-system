@@ -38,14 +38,14 @@ export default function ExpensesList({ expenses, onDeleted, onError }: ExpensesL
     }
     const result = await request(`/api/expenses/${id}`, { method: 'DELETE' });
     setConfirmId(null);
-    if (result) onDeleted('Расход удалён');
-    else onError('Не удалось удалить расход');
+    if (result) onDeleted('Expense deleted');
+    else onError('Failed to delete expense');
   }
 
   if (expenses.length === 0) {
     return (
       <Card>
-        <p className="py-8 text-center text-sm text-gray-500">Нет расходов за период</p>
+        <p className="py-8 text-center text-sm text-gray-500">No expenses for this period</p>
       </Card>
     );
   }
@@ -61,7 +61,7 @@ export default function ExpensesList({ expenses, onDeleted, onError }: ExpensesL
           : 'text-red-600 hover:bg-red-50'
       }`}
     >
-      {confirmId === id ? 'Точно?' : 'Удалить'}
+      {confirmId === id ? 'Sure?' : 'Delete'}
     </button>
   );
 
@@ -71,10 +71,10 @@ export default function ExpensesList({ expenses, onDeleted, onError }: ExpensesL
       <table className="hidden w-full text-sm md:table">
         <thead>
           <tr className="border-b border-gray-200 text-left text-xs uppercase tracking-wide text-gray-500">
-            <th className="px-4 py-3 font-medium">Дата</th>
-            <th className="px-4 py-3 font-medium">Категория</th>
-            <th className="px-4 py-3 font-medium">Описание</th>
-            <th className="px-4 py-3 text-right font-medium">Сумма</th>
+            <th className="px-4 py-3 font-medium">Date</th>
+            <th className="px-4 py-3 font-medium">Category</th>
+            <th className="px-4 py-3 font-medium">Description</th>
+            <th className="px-4 py-3 text-right font-medium">Amount</th>
             <th className="px-4 py-3" />
           </tr>
         </thead>

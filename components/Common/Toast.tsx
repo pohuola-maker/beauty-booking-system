@@ -67,7 +67,7 @@ export default function Toast({ message, type = 'info', onClose, duration = 3000
       <button
         type="button"
         onClick={onClose}
-        aria-label="Закрыть уведомление"
+        aria-label="Dismiss notification"
         className="rounded p-1 hover:bg-white/20"
       >
         <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">

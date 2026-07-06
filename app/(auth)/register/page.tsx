@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import RegisterForm from '@/components/Auth/RegisterForm';
 
 export const metadata: Metadata = {
-  title: 'Регистрация — BeautyBook',
+  title: 'Sign up — BeautyBook',
 };
 
 export default function RegisterPage() {

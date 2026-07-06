@@ -91,7 +91,7 @@ export async function POST(req: NextRequest) {
           phone: body.client_phone,
           email: body.client_email ?? null,
           first_visit_date: slot.date,
-          tags: ['новая'],
+          tags: ['new'],
         })
         .select('id')
         .single();

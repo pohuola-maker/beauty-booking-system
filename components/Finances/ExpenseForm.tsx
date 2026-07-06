@@ -42,9 +42,9 @@ export default function ExpenseForm({ onAdded }: ExpenseFormProps) {
     clearError();
     setLocalError(null);
 
-    if (!categoryId) return setLocalError('Выбери категорию');
-    if (!amount || Number(amount) <= 0) return setLocalError('Введи сумму больше 0');
-    if (!description.trim()) return setLocalError('Введи описание');
+    if (!categoryId) return setLocalError('Select a category');
+    if (!amount || Number(amount) <= 0) return setLocalError('Enter an amount greater than 0');
+    if (!description.trim()) return setLocalError('Enter a description');
 
     const result = await request('/api/expenses', {
       method: 'POST',
@@ -60,23 +60,23 @@ export default function ExpenseForm({ onAdded }: ExpenseFormProps) {
       // категорию и дату оставляем — удобно вбивать несколько расходов подряд
       setAmount('');
       setDescription('');
-      onAdded('Расход добавлен');
+      onAdded('Expense added');
     }
   }
 
   return (
     <Card>
-      <h2 className="mb-3 text-sm font-semibold text-gray-900">Добавить расход</h2>
+      <h2 className="mb-3 text-sm font-semibold text-gray-900">Add expense</h2>
 
       <form onSubmit={onSubmit} noValidate className="space-y-3">
         {(localError || error) && <ErrorMessage message={localError ?? error ?? ''} />}
 
         <div className="grid gap-3 sm:grid-cols-2">
           <Select
-            label="Категория"
+            label="Category"
             value={categoryId}
             onChange={(e) => setCategoryId(e.target.value)}
-            placeholder={categories.loading ? 'Загрузка…' : 'Выбери категорию'}
+            placeholder={categories.loading ? 'Loading…' : 'Select a category'}
             options={(categories.data?.categories ?? []).map((c) => ({
               value: c.id,
               label: c.name,
@@ -86,7 +86,7 @@ export default function ExpenseForm({ onAdded }: ExpenseFormProps) {
           />
 
           <Input
-            label="Сумма (€)"
+            label="Amount (€)"
             type="number"
             min="0.01"
             step="0.01"
@@ -100,9 +100,9 @@ export default function ExpenseForm({ onAdded }: ExpenseFormProps) {
         </div>
 
         <Input
-          label="Описание"
+          label="Description"
           type="text"
-          placeholder="Клей для ресниц, 2 шт"
+          placeholder="Lash glue, 2 pcs"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           disabled={loading}
@@ -112,7 +112,7 @@ export default function ExpenseForm({ onAdded }: ExpenseFormProps) {
         <div className="flex items-end gap-3">
           <div className="flex-1">
             <Input
-              label="Дата"
+              label="Date"
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
@@ -121,7 +121,7 @@ export default function ExpenseForm({ onAdded }: ExpenseFormProps) {
             />
           </div>
           <Button type="submit" loading={loading}>
-            Добавить
+            Add
           </Button>
         </div>
       </form>

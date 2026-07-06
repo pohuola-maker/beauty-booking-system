@@ -13,7 +13,7 @@ export default function BottomNav() {
 
   return (
     <nav
-      aria-label="Мобильная навигация"
+      aria-label="Mobile navigation"
       className="fixed inset-x-0 bottom-0 z-40 border-t border-gray-200 bg-white pb-[env(safe-area-inset-bottom)] md:hidden"
     >
       <div className="grid grid-cols-4">

@@ -1,5 +1,5 @@
 // path: components/Calendar/BookingModal.tsx
-// Детали букинга: статус, сумма, notes, no-show; Save → PUT, Delete с подтверждением
+// Booking details: статус, сумма, notes, no-show; Save → PUT, Delete с подтверждением
 
 'use client';
 
@@ -62,7 +62,7 @@ export default function BookingModal({ booking, onClose, onChanged }: BookingMod
         no_show: noShow,
       },
     });
-    if (result) onChanged('Букинг сохранён');
+    if (result) onChanged('Booking saved');
   }
 
   async function onDelete() {
@@ -71,21 +71,21 @@ export default function BookingModal({ booking, onClose, onChanged }: BookingMod
       return;
     }
     const result = await remove.request(`/api/bookings/${booking!.id}`, { method: 'DELETE' });
-    if (result) onChanged('Букинг удалён');
+    if (result) onChanged('Booking deleted');
   }
 
   return (
     <Modal
       open
       onClose={onClose}
-      title="Детали букинга"
+      title="Booking details"
       footer={
         <>
           <Button variant="danger" onClick={onDelete} loading={remove.loading} disabled={busy}>
-            {confirmDelete ? 'Точно удалить?' : 'Удалить'}
+            {confirmDelete ? 'Really delete?' : 'Delete'}
           </Button>
           <Button onClick={onSave} loading={save.loading} disabled={busy}>
-            Сохранить
+            Save
           </Button>
         </>
       }
@@ -102,7 +102,7 @@ export default function BookingModal({ booking, onClose, onChanged }: BookingMod
           </p>
           <p className="mt-0.5 text-sm text-gray-600">
             {booking.services?.name}
-            {booking.services && ` · ${booking.services.duration_minutes} мин`}
+            {booking.services && ` · ${booking.services.duration_minutes} min`}
           </p>
 
           <div className="mt-3 border-t border-gray-200 pt-3">
@@ -120,7 +120,7 @@ export default function BookingModal({ booking, onClose, onChanged }: BookingMod
         </div>
 
         <Select
-          label="Статус"
+          label="Status"
           value={status}
           onChange={(e) => setStatus(e.target.value as BookingStatus)}
           options={statusOptions}
@@ -128,7 +128,7 @@ export default function BookingModal({ booking, onClose, onChanged }: BookingMod
         />
 
         <Input
-          label="Сумма (€)"
+          label="Amount (€)"
           type="number"
           min="0"
           step="0.01"
@@ -140,7 +140,7 @@ export default function BookingModal({ booking, onClose, onChanged }: BookingMod
 
         <div>
           <label htmlFor="booking-notes" className="mb-1.5 block text-sm font-medium text-gray-700">
-            Заметки
+            Notes
           </label>
           <textarea
             id="booking-notes"
@@ -148,7 +148,7 @@ export default function BookingModal({ booking, onClose, onChanged }: BookingMod
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             disabled={busy}
-            placeholder="Пожелания клиента, детали..."
+            placeholder="Client wishes, details..."
             className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-gray-900
               placeholder:text-gray-400 focus:border-blue-500 focus:outline-none
               focus:ring-2 focus:ring-blue-200 disabled:bg-gray-50"
@@ -164,8 +164,8 @@ export default function BookingModal({ booking, onClose, onChanged }: BookingMod
             className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
           />
           <span className="text-sm text-gray-700">
-            Клиент не пришёл (no-show)
-            <span className="block text-xs text-gray-500">не учитывается в доходе</span>
+            Client did not show up (no-show)
+            <span className="block text-xs text-gray-500">not counted as income</span>
           </span>
         </label>
       </div>
@@ -175,7 +175,7 @@ export default function BookingModal({ booking, onClose, onChanged }: BookingMod
 
 function formatDate(iso: string): string {
   const [y, m, d] = iso.split('-').map(Number);
-  return new Intl.DateTimeFormat('ru-RU', {
+  return new Intl.DateTimeFormat('en-IE', {
     weekday: 'short',
     day: 'numeric',
     month: 'long',

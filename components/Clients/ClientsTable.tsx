@@ -29,10 +29,10 @@ interface ClientsTableProps {
 }
 
 const columns: Array<{ field: SortField; label: string; align?: 'right' }> = [
-  { field: 'name', label: 'Имя' },
-  { field: 'total_visits', label: 'Визитов', align: 'right' },
-  { field: 'total_spent', label: 'Потрачено', align: 'right' },
-  { field: 'last_visit_date', label: 'Последний визит' },
+  { field: 'name', label: 'Name' },
+  { field: 'total_visits', label: 'Visits', align: 'right' },
+  { field: 'total_spent', label: 'Spent', align: 'right' },
+  { field: 'last_visit_date', label: 'Last visit' },
 ];
 
 function formatDate(iso: string | null): string {
@@ -51,7 +51,7 @@ export default function ClientsTable({ clients, onView }: ClientsTableProps) {
       let cmp: number;
       switch (sortField) {
         case 'name':
-          cmp = a.name.localeCompare(b.name, 'ru');
+          cmp = a.name.localeCompare(b.name, 'en');
           break;
         case 'total_visits':
           cmp = a.total_visits - b.total_visits;
@@ -80,7 +80,7 @@ export default function ClientsTable({ clients, onView }: ClientsTableProps) {
   if (clients.length === 0) {
     return (
       <Card>
-        <p className="py-8 text-center text-sm text-gray-500">Клиенты не найдены</p>
+        <p className="py-8 text-center text-sm text-gray-500">No clients found</p>
       </Card>
     );
   }
@@ -116,7 +116,7 @@ export default function ClientsTable({ clients, onView }: ClientsTableProps) {
                   </button>
                 </th>
               ))}
-              <th className="px-4 py-3 font-medium">Телефон</th>
+              <th className="px-4 py-3 font-medium">Phone</th>
               <th className="px-4 py-3" />
             </tr>
           </thead>
@@ -155,7 +155,7 @@ export default function ClientsTable({ clients, onView }: ClientsTableProps) {
                     className="rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-medium
                       text-gray-700 transition-colors hover:bg-gray-100"
                   >
-                    Открыть
+                    View
                   </button>
                 </td>
               </tr>
@@ -180,7 +180,7 @@ export default function ClientsTable({ clients, onView }: ClientsTableProps) {
               <span className="min-w-0 flex-1">
                 <span className="block truncate text-sm font-medium text-gray-900">{c.name}</span>
                 <span className="block text-xs text-gray-500">
-                  {c.total_visits} виз. · последний {formatDate(c.last_visit_date)}
+                  {c.total_visits} visits · last {formatDate(c.last_visit_date)}
                 </span>
               </span>
               <span className="shrink-0 text-sm font-semibold text-gray-900">

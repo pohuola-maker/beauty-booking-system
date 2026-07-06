@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import Select from '@/components/Common/Select';
 import Input from '@/components/Common/Input';
 
-export const PRESET_TAGS = ['новая', 'постоянная', 'неактивная'];
+export const PRESET_TAGS = ['new', 'regular', 'inactive'];
 
 export interface ClientFilters {
   tag: string;
@@ -37,17 +37,17 @@ export default function ClientsFilter({ filters, onChange }: ClientsFilterProps)
     <div className="flex flex-wrap items-end gap-2">
       <div className="w-40">
         <Select
-          label="Тег"
+          label="Tag"
           value={filters.tag}
           onChange={(e) => onChange({ ...filters, tag: e.target.value })}
-          placeholder="Все"
+          placeholder="All"
           options={PRESET_TAGS.map((t) => ({ value: t, label: t }))}
         />
       </div>
 
       <div className="w-36">
         <Input
-          label="Потратила от €"
+          label="Spent from €"
           type="number"
           min="0"
           inputMode="numeric"
@@ -67,7 +67,7 @@ export default function ClientsFilter({ filters, onChange }: ClientsFilterProps)
           className="rounded-lg px-3 py-2.5 text-sm font-medium text-gray-500 transition-colors
             hover:bg-gray-100 hover:text-gray-700"
         >
-          Сбросить
+          Reset
         </button>
       )}
     </div>

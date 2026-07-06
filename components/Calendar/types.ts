@@ -27,9 +27,9 @@ export interface CalendarBooking {
 }
 
 export const STATUS_LABELS: Record<BookingStatus, string> = {
-  pending: 'Ожидает',
-  confirmed: 'Подтверждён',
-  cancelled: 'Отменён',
+  pending: 'Pending',
+  confirmed: 'Confirmed',
+  cancelled: 'Cancelled',
 };
 
 /** локальная дата → YYYY-MM-DD (без UTC-сдвига!) */

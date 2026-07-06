@@ -43,7 +43,7 @@ export async function apiFetch<T>(path: string, options: ApiFetchOptions = {}): 
   } catch (e) {
     if (e instanceof DOMException && e.name === 'AbortError') throw e;
     // сеть недоступна / offline
-    throw new ApiRequestError(0, 'Нет соединения. Проверь интернет и попробуй снова.');
+    throw new ApiRequestError(0, 'No connection. Check your internet and try again.');
   }
 
   // валидируем, что ответ — JSON (защита от HTML error pages)
@@ -53,7 +53,7 @@ export async function apiFetch<T>(path: string, options: ApiFetchOptions = {}): 
     try {
       json = await res.json();
     } catch {
-      throw new ApiRequestError(res.status, 'Сервер вернул некорректный ответ');
+      throw new ApiRequestError(res.status, 'Server returned an invalid response');
     }
   }
 
@@ -61,7 +61,7 @@ export async function apiFetch<T>(path: string, options: ApiFetchOptions = {}): 
     const errBody = json as { error?: string; details?: Record<string, string[]> } | null;
     const message =
       errBody?.error ??
-      (res.status >= 500 ? 'Что-то пошло не так. Попробуй позже.' : `Ошибка запроса (${res.status})`);
+      (res.status >= 500 ? 'Something went wrong. Try again later.' : `Request error (${res.status})`);
     throw new ApiRequestError(res.status, message, errBody?.details);
   }
 
@@ -105,7 +105,7 @@ export function useApi<T = unknown>(): UseApiResult<T> {
           setError(e.message);
           setFieldErrors(e.details ?? null);
         } else {
-          setError('Что-то пошло не так');
+          setError('Something went wrong');
         }
         return null;
       } finally {

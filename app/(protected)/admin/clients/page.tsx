@@ -70,9 +70,9 @@ export default function ClientsPage() {
       a.download = `clients_${new Date().toISOString().slice(0, 10)}.csv`;
       a.click();
       URL.revokeObjectURL(url);
-      setToast({ message: 'CSV скачан', type: 'success' });
+      setToast({ message: 'CSV downloaded', type: 'success' });
     } catch {
-      setToast({ message: 'Не удалось экспортировать CSV', type: 'error' });
+      setToast({ message: 'Failed to export CSV', type: 'error' });
     } finally {
       setExporting(false);
     }
@@ -82,7 +82,7 @@ export default function ClientsPage() {
     <AdminLayout>
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h1 className="text-xl font-semibold text-gray-900">Клиенты</h1>
+          <h1 className="text-xl font-semibold text-gray-900">Clients</h1>
           <Button variant="secondary" size="sm" onClick={exportCsv} loading={exporting}>
             Export CSV
           </Button>

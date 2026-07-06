@@ -66,7 +66,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         <div className="fixed inset-0 z-40 md:hidden">
           <button
             type="button"
-            aria-label="Закрыть меню"
+            aria-label="Close menu"
             onClick={() => setDrawerOpen(false)}
             className="absolute inset-0 bg-gray-900/40"
           />

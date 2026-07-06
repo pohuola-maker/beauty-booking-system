@@ -12,6 +12,21 @@ export async function POST(req: NextRequest) {
   try {
     const body = registerSchema.parse(await req.json());
 
+    // Регистрация закрыта: разрешён только самый первый аккаунт (bootstrap).
+    // Открыть обратно можно флагом ALLOW_REGISTRATION=true в env.
+    if (process.env.ALLOW_REGISTRATION !== 'true') {
+      const { count, error: countError } = await db()
+        .from('users')
+        .select('id', { count: 'exact', head: true });
+      if (countError) throwDbError(countError);
+      if ((count ?? 0) > 0) {
+        throw new ApiError(
+          403,
+          'Registration is closed. Ask the administrator to create your account.'
+        );
+      }
+    }
+
     // email уже занят?
     const { data: existing, error: lookupError } = await db()
       .from('users')

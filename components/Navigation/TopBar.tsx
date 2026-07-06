@@ -51,7 +51,7 @@ export default function TopBar({ user, onMenuClick, onLogout, menuOpen }: TopBar
         <button
           type="button"
           onClick={onMenuClick}
-          aria-label={menuOpen ? 'Закрыть меню' : 'Открыть меню'}
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={menuOpen}
           className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 md:hidden"
         >
@@ -109,7 +109,7 @@ export default function TopBar({ user, onMenuClick, onLogout, menuOpen }: TopBar
               <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 12H4m0 0l3-3m-3 3l3 3M10 4h8a2 2 0 012 2v12a2 2 0 01-2 2h-8" />
               </svg>
-              Выйти
+              Log out
             </button>
           </div>
         )}

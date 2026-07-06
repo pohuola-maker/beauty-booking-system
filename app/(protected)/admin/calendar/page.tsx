@@ -1,5 +1,5 @@
 // path: app/(protected)/admin/calendar/page.tsx
-// Календарь: [День][Неделя][Месяц] toggle, DayView по умолчанию,
+// Calendar: [Day][Week][Month] toggle, DayView по умолчанию,
 // свайп влево/вправо на мобильном = следующий/предыдущий день
 
 'use client';
@@ -19,9 +19,9 @@ import { useFetch } from '@/hooks/useFetch';
 type CalendarView = 'day' | 'week' | 'month';
 
 const viewLabels: Record<CalendarView, string> = {
-  day: 'День',
-  week: 'Неделя',
-  month: 'Месяц',
+  day: 'Day',
+  week: 'Week',
+  month: 'Month',
 };
 
 export default function CalendarPage() {
@@ -63,10 +63,10 @@ export default function CalendarPage() {
     <AdminLayout>
       <div className="space-y-4">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <h1 className="text-xl font-semibold text-gray-900">Календарь</h1>
+          <h1 className="text-xl font-semibold text-gray-900">Calendar</h1>
 
           {/* view toggle */}
-          <div role="tablist" aria-label="Вид календаря" className="flex rounded-lg border border-gray-300 bg-white p-0.5">
+          <div role="tablist" aria-label="Calendar view" className="flex rounded-lg border border-gray-300 bg-white p-0.5">
             {(Object.keys(viewLabels) as CalendarView[]).map((v) => (
               <button
                 key={v}
@@ -99,7 +99,7 @@ export default function CalendarPage() {
         ) : (
           <Card>
             <p className="py-12 text-center text-sm text-gray-500">
-              Вид «{viewLabels[view]}» появится в Phase 2 — пока используй «День»
+              The «{viewLabels[view]}» view is coming in Phase 2 — use “Day” for now
             </p>
           </Card>
         )}

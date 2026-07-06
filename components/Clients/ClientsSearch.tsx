@@ -25,8 +25,8 @@ export default function ClientsSearch({ onSearch, resultCount }: ClientsSearchPr
     <div className="w-full sm:max-w-xs">
       <Input
         type="search"
-        placeholder="Поиск: имя, телефон, email…"
-        aria-label="Поиск клиентов"
+        placeholder="Search: name, phone, email…"
+        aria-label="Search clients"
         value={value}
         onChange={(e) => setValue(e.target.value)}
         prefixIcon={
@@ -38,7 +38,7 @@ export default function ClientsSearch({ onSearch, resultCount }: ClientsSearchPr
       />
       {resultCount !== null && value.trim() && (
         <p className="mt-1 text-xs text-gray-500" aria-live="polite">
-          Найдено: {resultCount}
+          Found: {resultCount}
         </p>
       )}
     </div>

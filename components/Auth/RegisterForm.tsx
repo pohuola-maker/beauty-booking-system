@@ -27,9 +27,9 @@ interface FormErrors {
 /** правила пароля — те же, что в backend registerSchema */
 function passwordChecks(password: string) {
   return [
-    { label: 'Минимум 8 символов', ok: password.length >= 8 },
-    { label: 'Хотя бы одна буква', ok: /[a-zA-Z]/.test(password) },
-    { label: 'Хотя бы одна цифра', ok: /[0-9]/.test(password) },
+    { label: 'At least 8 characters', ok: password.length >= 8 },
+    { label: 'At least one letter', ok: /[a-zA-Z]/.test(password) },
+    { label: 'At least one digit', ok: /[0-9]/.test(password) },
   ];
 }
 
@@ -54,12 +54,12 @@ export default function RegisterForm() {
 
   function validate(): boolean {
     const errors: FormErrors = {};
-    if (form.name.trim().length < 2) errors.name = 'Имя — минимум 2 символа';
-    if (!EMAIL_RE.test(form.email.trim())) errors.email = 'Введи корректный email';
+    if (form.name.trim().length < 2) errors.name = 'Name must be at least 2 characters';
+    if (!EMAIL_RE.test(form.email.trim())) errors.email = 'Enter a valid email';
     if (form.phone.trim() && !PHONE_RE.test(form.phone.trim())) {
-      errors.phone = 'Некорректный номер телефона';
+      errors.phone = 'Invalid phone number';
     }
-    if (!checks.every((c) => c.ok)) errors.password = 'Пароль не соответствует требованиям';
+    if (!checks.every((c) => c.ok)) errors.password = 'Password does not meet the requirements';
     setClientErrors(errors);
     return Object.keys(errors).length === 0;
   }
@@ -92,18 +92,18 @@ export default function RegisterForm() {
 
   return (
     <Card className="p-6">
-      <h1 className="mb-6 text-xl font-semibold text-gray-900">Регистрация</h1>
+      <h1 className="mb-6 text-xl font-semibold text-gray-900">Sign up</h1>
 
       <form onSubmit={onSubmit} noValidate className="space-y-4">
         {error && <ErrorMessage message={error} />}
 
         <Input
           ref={nameRef}
-          label="Имя"
+          label="Name"
           type="text"
           name="name"
           autoComplete="name"
-          placeholder="Анна Иванова"
+          placeholder="Anna Smith"
           value={form.name}
           onChange={set('name')}
           error={fieldError('name')}
@@ -123,7 +123,7 @@ export default function RegisterForm() {
         />
 
         <Input
-          label="Телефон (необязательно)"
+          label="Phone (optional)"
           type="tel"
           name="phone"
           autoComplete="tel"
@@ -136,7 +136,7 @@ export default function RegisterForm() {
 
         <div>
           <Input
-            label="Пароль"
+            label="Password"
             type="password"
             name="password"
             autoComplete="new-password"
@@ -148,7 +148,7 @@ export default function RegisterForm() {
           />
 
           {/* password strength checklist */}
-          <ul className="mt-2 space-y-1" aria-label="Требования к паролю">
+          <ul className="mt-2 space-y-1" aria-label="Password requirements">
             {checks.map((check) => (
               <li
                 key={check.label}
@@ -172,14 +172,14 @@ export default function RegisterForm() {
         </div>
 
         <Button type="submit" fullWidth size="lg" loading={loading}>
-          Создать аккаунт
+          Create account
         </Button>
       </form>
 
       <p className="mt-6 text-center text-sm text-gray-600">
-        Уже есть аккаунт?{' '}
+        Already have an account?{' '}
         <Link href="/login" className="font-medium text-blue-600 hover:text-blue-700">
-          Войди
+          Log in
         </Link>
       </p>
     </Card>

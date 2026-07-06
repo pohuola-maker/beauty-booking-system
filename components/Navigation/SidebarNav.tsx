@@ -16,7 +16,7 @@ export default function SidebarNav({ onNavigate }: SidebarNavProps) {
   const pathname = usePathname();
 
   return (
-    <nav aria-label="Основная навигация" className="flex flex-col gap-1 p-3">
+    <nav aria-label="Main navigation" className="flex flex-col gap-1 p-3">
       {NAV_ITEMS.map((item) => {
         const active = isActiveLink(pathname, item.href);
         return (
