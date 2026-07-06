@@ -148,10 +148,14 @@ create table bookings (
   amount_received numeric(10,2) check (amount_received >= 0), -- defaults to service.price via trigger
   no_show         boolean not null default false,
   created_at      timestamptz not null default now(),
-  updated_at      timestamptz not null default now(),
-  -- a time slot can hold at most one active booking (double-booking guard)
-  constraint bookings_one_active_per_slot exclude (time_slot_id with =) where (status <> 'cancelled')
+  updated_at      timestamptz not null default now()
 );
+
+-- слот держит максимум один активный букинг (защита от double-booking);
+-- partial unique index вместо exclusion constraint — не требует btree_gist
+create unique index bookings_one_active_per_slot
+  on bookings (time_slot_id)
+  where (status <> 'cancelled');
 
 create index idx_bookings_user_status on bookings (user_id, status, created_at);
 create index idx_bookings_time_slot   on bookings (time_slot_id);

@@ -3,7 +3,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/supabase';
-import { handleApiError, ApiError } from '@/lib/api';
+import { handleApiError, ApiError, throwDbError } from '@/lib/api';
 import { verifyPassword, signToken, setAuthCookie, sanitizeUser } from '@/lib/auth';
 import { loginSchema } from '@/lib/validation';
 import { logAudit } from '@/lib/audit';
@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
       .eq('email', body.email)
       .maybeSingle();
 
-    if (error) throw new ApiError(500, 'Database error');
+    if (error) throwDbError(error); // реальная причина попадёт в Vercel Logs
 
     // одинаковое сообщение для "нет юзера" и "неверный пароль" —
     // не раскрываем, какие email зарегистрированы

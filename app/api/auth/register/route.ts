@@ -3,7 +3,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/supabase';
-import { handleApiError, ApiError } from '@/lib/api';
+import { handleApiError, ApiError, throwDbError } from '@/lib/api';
 import { hashPassword, signToken, setAuthCookie, sanitizeUser } from '@/lib/auth';
 import { registerSchema } from '@/lib/validation';
 import { logAudit } from '@/lib/audit';
@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
       .eq('email', body.email)
       .maybeSingle();
 
-    if (lookupError) throw new ApiError(500, 'Database error');
+    if (lookupError) throwDbError(lookupError); // реальная причина попадёт в Vercel Logs
     if (existing) throw new ApiError(409, 'Email already registered');
 
     const passwordHash = await hashPassword(body.password);
@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
       .single();
 
     if (insertError || !user) {
-      throw new ApiError(500, 'Failed to create account');
+      throwDbError(insertError ?? { message: 'insert returned no row' });
     }
 
     // сразу логиним после регистрации

@@ -3,7 +3,7 @@
 
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/supabase';
-import { handleApiError, ApiError } from '@/lib/api';
+import { handleApiError, ApiError, throwDbError } from '@/lib/api';
 import { requireAuth, sanitizeUser } from '@/lib/auth';
 
 export async function GET() {
@@ -16,7 +16,7 @@ export async function GET() {
       .eq('id', auth.id)
       .maybeSingle();
 
-    if (error) throw new ApiError(500, 'Database error');
+    if (error) throwDbError(error);
     if (!user) throw new ApiError(401, 'User no longer exists');
 
     return NextResponse.json({ user: sanitizeUser(user) });
