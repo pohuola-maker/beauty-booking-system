@@ -1,5 +1,6 @@
 // path: app/(auth)/layout.tsx
 // Layout для /login и /register: центрированная форма, лого сверху, без навигации
+'use client';
 
 import type { ReactNode } from 'react';
 
